@@ -13,8 +13,9 @@ func main() {
 	cfg := config.LoadConfig()
 	database.Initialize(cfg)
 
-	http.HandleFunc("/microposts", handlers.HandleMicroposts)
-	http.HandleFunc("/microposts/", handlers.HandleMicropost)
+	micropostHandler := handlers.NewMicropostHandler()
+	http.HandleFunc("/microposts", micropostHandler.HandleMicroposts)
+	http.HandleFunc("/microposts/", micropostHandler.HandleMicropost)
 
 	log.Println("Server starting on port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", nil))
