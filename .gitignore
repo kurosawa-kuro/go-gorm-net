@@ -26,6 +26,6 @@ go.work.sum
 .vscode/settings.json
 .env.development
 .env.test
-logs/
+logs/*.log
 logs/access.log
 logs/error.log
