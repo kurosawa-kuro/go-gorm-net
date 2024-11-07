@@ -4,9 +4,8 @@ import (
 	"log"
 
 	"go-gorm-net/config"
-
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"go-gorm-net/database"
+	"go-gorm-net/models"
 )
 
 func ResetDB() {
@@ -14,41 +13,29 @@ func ResetDB() {
 	SeedDatabase()
 }
 
-type Micropost struct {
-	ID    uint   `json:"id"`
-	Title string `json:"title"`
-}
-
 func CleanupDatabase() {
 	cfg := config.LoadConfig()
-	db, err := gorm.Open(postgres.Open(cfg.DatabaseURL), &gorm.Config{})
-	if err != nil {
-		log.Fatal(err)
-	}
+	database.Initialize(cfg)
 
 	// テーブルを削除して再作成
-	db.Migrator().DropTable(&Micropost{})
-	db.AutoMigrate(&Micropost{})
+	database.DB.Migrator().DropTable(&models.Micropost{})
+	database.DB.AutoMigrate(&models.Micropost{})
 
 	log.Println("Database cleaned up successfully")
 }
 
 func SeedDatabase() {
-	cfg := config.LoadConfig()
-	db, err := gorm.Open(postgres.Open(cfg.DatabaseURL), &gorm.Config{})
-	if err != nil {
-		log.Fatal(err)
-	}
+	// データベース接続は既に Initialize で行われているため不要
 
 	// シードデータの作成
-	posts := []Micropost{
+	posts := []models.Micropost{
 		{Title: "最初の投稿"},
 		{Title: "2番目の投稿"},
 		{Title: "3番目の投稿"},
 	}
 
 	for _, post := range posts {
-		db.Create(&post)
+		database.DB.Create(&post)
 	}
 
 	log.Println("Database seeded successfully")
