@@ -1,0 +1,13 @@
+### マイクロポストの全件取得
+GET http://localhost:8080/microposts
+
+### 新規マイクロポスト作成
+POST http://localhost:8080/microposts
+Content-Type: application/json
+
+{
+    "title": "テストポスト"
+}
+
+### 特定のマイクロポストを取得 (IDを適切な値に変更してください)
+GET http://localhost:8080/microposts/1
