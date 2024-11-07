@@ -1,10 +1,14 @@
 # go-gorm-net
 
 ```     
-go run ./tools/db/reset_db.go
+ go run ./cmd/reset_db/main.go
 ```
 
 ```
 $env:APP_ENV="development"; go run main.go
+```
+
+``` 
+$env:APP_ENV="test"; go test -v ./tests/integration
 ```
 
