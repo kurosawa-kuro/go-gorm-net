@@ -8,3 +8,4 @@
 2024/11/07 22:40:03 method=POST path=/microposts remote_addr=127.0.0.1:55425 duration=641.4µs
 2024/11/07 22:40:03 method=GET path=/microposts remote_addr=127.0.0.1:55425 duration=0s
 2024/11/07 22:41:17 method=GET path=/microposts remote_addr=127.0.0.1:55461 duration=0s
+2024/11/07 22:41:42 method=GET path=/microposts remote_addr=127.0.0.1:55470 duration=504.7µs
