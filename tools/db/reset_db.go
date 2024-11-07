@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"log"
@@ -39,8 +39,4 @@ func SeedDatabase() {
 	}
 
 	log.Println("Database seeded successfully")
-}
-
-func main() {
-	ResetDB()
 }

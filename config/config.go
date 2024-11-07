@@ -15,20 +15,34 @@ type Config struct {
 }
 
 func LoadConfig() *Config {
-	// 環境変数APP_ENVを読み込み、未設定の場合はdevelopmentをデフォルトとする
 	env := os.Getenv("APP_ENV")
 	if env == "" {
 		env = "development"
 	}
 
+	// プロジェクトのルートディレクトリを取得
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Printf("Warning: カレントディレクトリの取得に失敗しました: %v", err)
+	}
+
+	// testsディレクトリから実行された場合のパス解決
+	if filepath.Base(currentDir) == "integration" {
+		currentDir = filepath.Join(currentDir, "..", "..")
+	}
+
 	// 環境に応じた.envファイルを読み込む
-	envFile := fmt.Sprintf(".env.%s", env)
-	if err := godotenv.Load(filepath.Clean(envFile)); err != nil {
+	envFile := filepath.Join(currentDir, fmt.Sprintf(".env.%s", env))
+	if err := godotenv.Load(envFile); err != nil {
 		log.Printf("Warning: %sファイルが見つかりません。環境変数を直接使用します。\n", envFile)
 	}
 
+	// 設定値をログ出力（デバッグ用）
+	dbURL := os.Getenv("DATABASE_URL")
+	log.Printf("Database URL: %s", dbURL)
+
 	return &Config{
-		DatabaseURL: os.Getenv("DATABASE_URL"),
+		DatabaseURL: dbURL,
 		AppEnv:      os.Getenv("APP_ENV"),
 	}
 }
