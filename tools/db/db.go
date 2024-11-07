@@ -1,9 +1,9 @@
 package db
 
 import (
-	"go-gorm-net/config"
-	"go-gorm-net/database"
-	"go-gorm-net/models"
+	"go-gorm-net/internal/models"
+	"go-gorm-net/pkg/config"
+	"go-gorm-net/pkg/database"
 	"log"
 )
 

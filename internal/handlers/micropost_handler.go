@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"go-gorm-net/logger"
-	"go-gorm-net/models"
-	"go-gorm-net/services"
+	"go-gorm-net/internal/models"
+	"go-gorm-net/internal/services"
+	"go-gorm-net/pkg/logger"
 )
 
 type MicropostHandler struct {

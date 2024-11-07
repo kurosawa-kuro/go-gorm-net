@@ -9,9 +9,9 @@ import (
 	"os"
 	"testing"
 
-	"go-gorm-net/config"
-	"go-gorm-net/handlers"
-	"go-gorm-net/models"
+	"go-gorm-net/internal/handlers"
+	"go-gorm-net/internal/models"
+	"go-gorm-net/pkg/config"
 	"go-gorm-net/tools/db"
 
 	"github.com/stretchr/testify/assert"

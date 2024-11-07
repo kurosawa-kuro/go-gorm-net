@@ -1,8 +1,8 @@
 package services
 
 import (
-	"go-gorm-net/database"
-	"go-gorm-net/models"
+	"go-gorm-net/internal/models"
+	"go-gorm-net/pkg/database"
 )
 
 type MicropostService struct{}
@@ -13,7 +13,8 @@ func NewMicropostService() *MicropostService {
 
 func (s *MicropostService) GetAll() ([]models.Micropost, error) {
 	var microposts []models.Micropost
-	result := database.DB.Find(&microposts)
+	// idが降順になるように取得
+	result := database.DB.Order("id DESC").Find(&microposts)
 	return microposts, result.Error
 }
 

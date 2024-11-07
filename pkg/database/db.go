@@ -3,8 +3,8 @@ package database
 import (
 	"log"
 
-	"go-gorm-net/config"
-	"go-gorm-net/models"
+	"go-gorm-net/internal/models"
+	"go-gorm-net/pkg/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

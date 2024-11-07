@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"go-gorm-net/logger"
+	"go-gorm-net/pkg/logger"
 	"net/http"
 	"time"
 )

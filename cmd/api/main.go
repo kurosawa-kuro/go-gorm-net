@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"go-gorm-net/config"
-	"go-gorm-net/database"
-	"go-gorm-net/handlers"
-	"go-gorm-net/logger"
-	"go-gorm-net/middleware"
+	"go-gorm-net/internal/handlers"
+	"go-gorm-net/internal/middleware"
+	"go-gorm-net/pkg/config"
+	"go-gorm-net/pkg/database"
+	"go-gorm-net/pkg/logger"
 )
 
 func main() {
