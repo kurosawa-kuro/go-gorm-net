@@ -12,12 +12,12 @@ import (
 )
 
 type MicropostHandler struct {
-	service *services.MicropostService
+	service services.MicropostServiceInterface
 }
 
-func NewMicropostHandler() *MicropostHandler {
+func NewMicropostHandler(service services.MicropostServiceInterface) *MicropostHandler {
 	return &MicropostHandler{
-		service: services.NewMicropostService(),
+		service: service,
 	}
 }
 

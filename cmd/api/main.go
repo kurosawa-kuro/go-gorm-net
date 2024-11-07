@@ -6,6 +6,7 @@ import (
 
 	"go-gorm-net/internal/handlers"
 	"go-gorm-net/internal/middleware"
+	"go-gorm-net/internal/services"
 	"go-gorm-net/pkg/config"
 	"go-gorm-net/pkg/database"
 	"go-gorm-net/pkg/logger"
@@ -18,7 +19,11 @@ func main() {
 	cfg := config.LoadConfig()
 	database.Initialize(cfg)
 
-	micropostHandler := handlers.NewMicropostHandler()
+	// サービスのインスタンスを作成
+	micropostService := services.NewMicropostService()
+
+	// ハンドラーにサービスを注入
+	micropostHandler := handlers.NewMicropostHandler(micropostService)
 
 	// ミドルウェアを適用したルーティング
 	http.HandleFunc("/microposts", middleware.LoggingMiddleware(micropostHandler.HandleMicroposts))

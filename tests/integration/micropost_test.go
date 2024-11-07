@@ -12,6 +12,7 @@ import (
 
 	"go-gorm-net/internal/handlers"
 	"go-gorm-net/internal/models"
+	"go-gorm-net/internal/services"
 	"go-gorm-net/pkg/config"
 	"go-gorm-net/tools/db"
 
@@ -43,8 +44,11 @@ func TestGetAllMicroposts(t *testing.T) {
 	// テストのセットアップ
 	setupTest()
 
+	// サービスの準備
+	micropostService := services.NewMicropostService()
+
 	// ハンドラーの準備
-	handler := handlers.NewMicropostHandler()
+	handler := handlers.NewMicropostHandler(micropostService)
 
 	// テストサーバーの作成
 	server := httptest.NewServer(http.HandlerFunc(handler.HandleMicroposts))
@@ -80,8 +84,11 @@ func TestCreateMicropost(t *testing.T) {
 	// テストのセットアップ
 	setupTest()
 
+	// サービスの準備
+	micropostService := services.NewMicropostService()
+
 	// ハンドラーの準備
-	handler := handlers.NewMicropostHandler()
+	handler := handlers.NewMicropostHandler(micropostService)
 
 	// テストサーバーの作成
 	server := httptest.NewServer(http.HandlerFunc(handler.HandleMicroposts))

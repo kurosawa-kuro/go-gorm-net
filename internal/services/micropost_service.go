@@ -5,6 +5,12 @@ import (
 	"go-gorm-net/pkg/database"
 )
 
+type MicropostServiceInterface interface {
+	GetAll() ([]models.Micropost, error)
+	Create(micropost *models.Micropost) error
+	GetByID(id int) (*models.Micropost, error)
+}
+
 type MicropostService struct{}
 
 func NewMicropostService() *MicropostService {

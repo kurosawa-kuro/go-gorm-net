@@ -7,6 +7,8 @@ require (
 	gorm.io/gorm v1.25.12
 )
 
+require github.com/stretchr/objx v0.5.2 // indirect
+
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
