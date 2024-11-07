@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
+
+	"go-gorm-net/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -21,14 +22,12 @@ type Micropost struct {
 var db *gorm.DB
 
 func main() {
-	// データベース接続を PostgreSQL 用に変更
-	dsn := os.Getenv("DATABASE_URL")
-	if dsn == "" {
-		dsn = "postgresql://postgres:postgres@localhost:5432/web_app_db_integration_go?sslmode=disable"
-	}
+	// 設定を読み込む
+	cfg := config.LoadConfig()
 
+	// データベース接続
 	var err error
-	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(cfg.DatabaseURL), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}

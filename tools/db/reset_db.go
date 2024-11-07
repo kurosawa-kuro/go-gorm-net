@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 
+	"go-gorm-net/config"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -18,8 +20,8 @@ type Micropost struct {
 }
 
 func CleanupDatabase() {
-	dsn := "postgresql://postgres:postgres@localhost:5432/web_app_db_integration_go?sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	cfg := config.LoadConfig()
+	db, err := gorm.Open(postgres.Open(cfg.DatabaseURL), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -32,8 +34,8 @@ func CleanupDatabase() {
 }
 
 func SeedDatabase() {
-	dsn := "postgresql://postgres:postgres@localhost:5432/web_app_db_integration_go?sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	cfg := config.LoadConfig()
+	db, err := gorm.Open(postgres.Open(cfg.DatabaseURL), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
