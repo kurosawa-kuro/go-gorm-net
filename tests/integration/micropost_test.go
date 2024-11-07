@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"sort"
 	"testing"
 
 	"go-gorm-net/internal/handlers"
@@ -33,14 +34,14 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func setupTest(t *testing.T) {
+func setupTest() {
 	// データベースのリセットと初期データの投入
 	db.ResetDB()
 }
 
 func TestGetAllMicroposts(t *testing.T) {
 	// テストのセットアップ
-	setupTest(t)
+	setupTest()
 
 	// ハンドラーの準備
 	handler := handlers.NewMicropostHandler()
@@ -62,6 +63,11 @@ func TestGetAllMicroposts(t *testing.T) {
 	err = json.NewDecoder(resp.Body).Decode(&microposts)
 	assert.NoError(t, err)
 
+	// Sort microposts by ID or another field to ensure consistent order
+	sort.Slice(microposts, func(i, j int) bool {
+		return microposts[i].ID < microposts[j].ID
+	})
+
 	// 期待される結果の検証
 	assert.Len(t, microposts, 3) // シードデータで3件投入されていることを想定
 	assert.Equal(t, "最初の投稿", microposts[0].Title)
@@ -72,7 +78,7 @@ func TestGetAllMicroposts(t *testing.T) {
 // POSTリクエストのテスト
 func TestCreateMicropost(t *testing.T) {
 	// テストのセットアップ
-	setupTest(t)
+	setupTest()
 
 	// ハンドラーの準備
 	handler := handlers.NewMicropostHandler()
